@@ -1,0 +1,132 @@
+.grid_1_of_4
+{
+    margin-left: 0px;
+}
+
+#TextListProduct
+{
+    color: red;
+}
+.images_1_of_4 h3
+{
+    color: rgb(255, 0, 0);
+}
+.images_1_of_4 a
+{
+    color: rgb(2, 4, 1);
+}
+
+nav{
+   display: flex;
+   justify-content: center;
+   width: 830.92px;
+}
+
+.pagination>.active>a
+{
+    background-color: rgb(146, 236, 51);
+    color: black;
+    border-color: rgb(146, 236, 51);
+}
+
+.pagination>li>a, .pagination>li>span
+{
+    color: black;
+    border-color: rgb(146, 236, 51) ;
+}
+
+#TextListProduct
+{
+    width: 50%;
+}
+
+#cssSearch
+{
+    display: flex;
+    
+    
+}
+
+.search-bar1
+{
+    
+    position: relative;
+    width: 410.10px;
+
+}
+.child1
+{
+    
+    position: absolute;
+    right: 0px;
+}
+.search-bar input[type="text"] 
+{
+    background-color:  rgb(238, 243, 238) ; 
+    color: black;
+    position: absolute;
+    right: 66.7px;
+    padding: 5px 9px 5px 10px;
+}
+
+.search-bar button {
+    margin-right: 0;
+    color: #000;
+    background: #fff;
+    padding: 5px 9px 5px 10px;
+    border: 1px solid #e5e5e5;
+    margin: 0;
+    border-left: none;
+    cursor: pointer;
+    background: #94CB32;
+    font-weight: bold;
+}
+.search-bar button:hover {
+    margin-right: 0;
+    color: #f8efef;
+    background: #fff;
+    padding: 5px 9px 5px 10px;
+    border: 1px solid #e5e5e5;
+    margin: 0;
+    border-left: none;
+    cursor: pointer;
+    background: #1d1212;
+    font-weight: bold;
+}
+
+.header1
+{
+    margin-top: 12px;
+}
+
+.top-header
+{
+    margin: 0px;
+}
+
+.images_1_of_4
+{
+    border: 1px solid #94cb32;
+}
+.hinhdaidien
+{
+    width: 50px;
+    height: 50px;
+}
+
+#totalprice
+{
+    color:  red;
+}
+
+
+#deleteAll
+{
+   float: right;
+   margin-right: 3.5% ;
+}
+h1{
+    /* margin-top: 10px;
+    margin-bottom: 0px; */
+    color: rgb(241, 28, 170);
+}

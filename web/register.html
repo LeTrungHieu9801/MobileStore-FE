@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+     <!-- import JQuery -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- import bootstrap -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- import css -->
+    <link rel="stylesheet" href="CSS/login.css">
+
+</head>
+<body>
+    <div class="imgcontainer">
+        <span onclick="returnHome()" class="close" title="Close Modal">&times;</span>
+        <img src="https://www.w3schools.com/howto/img_avatar2.png" height="200px" width="auto" alt="Avatar" class="avatar">
+      </div>
+  
+      <div class="container">
+        <label ><b>Firstname</b></label>
+        <input type="text" placeholder="Enter Firstname" id="firstname" name="Firstname" required>
+
+        <label ><b>Lastname</b></label>
+        <input type="text" placeholder="Enter Lastname" id="lastname" name="Lastname" required>
+
+        <label for="uname"><b>email</b></label>
+        <input type="text" placeholder="Enter Username" id="email" name="username" required>
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" name="password" required>
+        
+        <label for="psw"><b>Re-enter password</b></label>
+        <input type="password" placeholder="Enter Password" id="Repassword" name="password" required>
+        
+        <p style="color: red;" id="nameErrorMessage"></p>
+
+        <button onclick="Register()">Register</button>
+
+      </div>
+  
+</body>
+
+<!-- import javascript -->
+<script src="js/Register.js"></script>
+</html>

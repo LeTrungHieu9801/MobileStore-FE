@@ -1,0 +1,180 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Mobilestore Website Template | single :: W3layouts</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta name="keywords"
+        content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet'
+        type='text/css'>
+    <link rel="stylesheet" href="css/responsiveslides.css">
+    <link rel="stylesheet" href="css/getAllProduct.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/GetAllProducts.js"></script>
+    <script src="js/shoppingCart.js"></script>
+
+    <link rel="stylesheet" href="css/single.css">
+    <script>
+        $(document).ready(() => {
+            TotalQuantity();
+            const params = new URLSearchParams(window.location.search);
+            const product_id = parseInt(params.get('product_id'));
+            if (isNaN(product_id)) {
+                alert('Product id không hợp lệ!');
+                return;
+            }
+
+            $.get("http://localhost:8080/ListProduct/" + product_id, (data, status) => {
+                const category_ele = document.getElementById("category");
+                const name_ele = document.getElementById("name");
+                const price_ele = document.getElementById("price");
+                const description_ele = document.getElementById("description");
+                const image_ele = document.getElementById("imageProduct");
+                const addCart_ele = document.getElementById("addcart");
+
+
+                category_ele.textContent = data.category;
+                name_ele.textContent = data.productName;
+                price_ele.textContent = "$"+data.price;
+                description_ele.textContent = data.description;
+                image_ele.src = "images/" + data.image;
+                addCart_ele.innerHTML = `<input type="button" id = "buttonAddCart" onclick="addCart(`+data.id+`)" value="Add Cart">`;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="showAll">
+        <div class="wrap">
+            <!----start-Header---->
+            <div class="header">
+
+                <div class="clear"> </div>
+                <div class="header-top-nav">
+                    <ul>
+                        <li><a id="fullname" style=" color: red; display: none;"></a></li>
+                        <li><a style="display: none;" id="logout" href="#" onclick="logout()">Logout</a></li>
+                        <li id="register"  ><a href="register.html" >Register</a></li>
+                        <li id="login" ><a href="login.html" >Login</a></li>
+                        <li><a href="shoppingCart.html"><span>shopping cart&nbsp;&nbsp;: </span></a><label id="totalitems">
+                            </label></li>
+                    </ul>
+                </div>
+                <div class="clear"> </div>
+            </div>
+        </div>
+        <div class="clear"> </div>
+        <div class="top-header">
+            <div class="wrap">
+                <!----start-logo---->
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" title="logo" /></a>
+                </div>
+                <!----end-logo---->
+                <!----start-top-nav---->
+                <div class="top-nav">
+                    <ul>
+                        <li><a href="index.html">Trang Chủ</a></li>
+                        <li><a href="Store.html">Sản Phẩm</a></li>
+                        <li><a href="contact.html">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="clear"> </div>
+            </div>
+        </div>
+    </div>
+
+    <!----End-top-nav---->
+    <!----End-Header---->
+    <div class="clear"> </div>
+    <div class="wrap">
+        <div class="content">
+            <div id="content-grids">
+                <!-- Hinh anh san pham -->
+                <div id="layout-image">
+
+                    <div class="back-links">
+                        <ul>
+                            <li><a  href="index.html"> <p class="back">Trang Chủ</p>     </a><img class="picBack" src="images/arrow.png" alt=""></li>
+                            <li><a href="Store.html"> <p class="back">Sản Phẩm</p> </a><img  class="picBack" src="images/arrow.png" alt=""></li>
+                            <li><a href="#"><p class="back">Chi tiết Sản Phẩm</p> </a><img class="picBack"  src="images/arrow.png" alt=""></li>
+                        </ul>
+                    </div>
+
+                    <div><img id="imageProduct"></div>
+
+                </div>
+                <!-- Thoong tin chi tiết của san pham -->
+                <div id="detailProduct">
+                    <h2 style="text-align: center; color: rgb(235, 91, 91);">Thông tin sản phẩm</h2>
+                    <ul>
+                        <li class="Single-content"><b>Thương hiệu:</b>&nbsp;<span class="Single-text" id="category"></span></li>
+                        <li class="Single-content"><b> Tên:</b>&nbsp; <span class="Single-text" id="name"></span></li>
+                        <li class="Single-content"><b>Giá:</b>  <span class="Single-text" id="price"></span></li>
+                        <li class="Single-content"> <b>Thông tin:</b>&nbsp;  <span class="Single-text" id="description"></span></li>
+                        <li class="Single-content" > <span id="addcart"></span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="clear"> </div>
+    </div>
+    <div class="footer">
+        <div class="wrap">
+            <div class="section group">
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Our Info</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Latest-News</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4">
+                    <h3>Store Location</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    <h3>Order-online</h3>
+                    <p>080-1234-56789</p>
+                    <p>080-1234-56780</p>
+                </div>
+                <div class="col_1_of_4 span_1_of_4 footer-lastgrid">
+                    <h3>News-Letter</h3>
+                    <form>
+                        <input type="text"><input type="submit" value="go" />
+                    </form>
+                    <h3>Follow Us:</h3>
+                    <ul>
+                        <li><a href="#"><img src="images/twitter.png" title="twitter" />Twitter</a></li>
+                        <li><a href="#"><img src="images/facebook.png" title="Facebook" />Facebook</a></li>
+                        <li><a href="#"><img src="images/rss.png" title="Rss" />Rss</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"> </div>
+        <div class="wrap">
+            <div class="copy-right">
+                <p>&copy; 2013 Mobile Store. All Rights Reserved | Design by <a
+                        href="http://w3layouts.com/">W3Layouts</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

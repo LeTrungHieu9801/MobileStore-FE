@@ -1,0 +1,73 @@
+#checkout
+{
+    width: 100%;
+    height: 600px;
+  
+    display: flex;
+}
+
+#Thongtingiaohang
+{
+    width: 50%;
+    height: 100%;
+   
+    display: block;
+
+}
+#con-Thongtingiaohang
+{
+    
+   align-items: center ;
+   
+}
+#tieude
+{
+    margin: 50px 32%;
+    color: rgb(244, 0, 0);
+    font-size: 20px;
+}
+#label
+{
+    display: block;
+    margin: 5px 8%;
+ 
+   
+}
+.input
+{
+    width: 80%;
+    height: 40px;
+    margin: 8px 8%;
+}
+#chitietdonhang
+{
+    width: 50%;
+    height: 100%;
+    background-color: white;
+    display: block;
+}
+#baothanhcong
+{
+    width: 100%;
+    height: 500px;
+    background-color: rgb(176, 231, 231);
+    display: none;
+}
+#baothanhcong1
+{
+    color: red;
+    font-size: 30px;
+    padding: 10%;
+    
+
+}
+
+#sdt
+{
+    color: yellow;
+}
+
+#back
+{
+    margin-left: 48% ;
+}

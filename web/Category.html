@@ -1,0 +1,234 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Shopcuahieu | Home </title>
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<meta name="keywords"
+		content="Mobilestore iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link href='//fonts.googleapis.com/css?family=Londrina+Solid|Coda+Caption:800|Open+Sans' rel='stylesheet'
+		type='text/css'>
+	<link rel="stylesheet" href="css/responsiveslides.css">
+	<link rel="stylesheet" href="css/getAllProduct.css">
+	<link rel="stylesheet" href="css/single.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/responsiveslides.min.js"></script>
+	<script src="js/logout.js"></script>
+	<script src="js/login.js"></script>
+	<script src="js/GetAllProducts.js"></script>
+	<script src="js/shoppingCart.js"></script>
+
+	<script>
+		// You can also use "$(window).load(function() {"
+		$(function () {
+			const params = new URLSearchParams(window.location.search);
+			const page = parseInt(params.get('page'));
+			const size = parseInt(params.get('size'));
+			const search = params.get('search');
+			console.log(search);
+			var url = "http://localhost:8080/ListProduct";
+			$.get(url + "?page=" + page + "&size=" + size + "&search=" + search, (data1, status) => {
+				$("#GetAllProduct").empty();
+				products = data1.content;
+				console.log(data1);
+				products.forEach(function (item) {
+					$("#GetAllProduct").append(
+						`<div class= "grid_1_of_4 images_1_of_4 products-info">` +
+						`<img src="images/` +
+						item.image +
+						` ">` +
+						`<a href="single.html">` +
+						item.productName +
+						`</a>` +
+						`<h3 class = "text"> $` +
+						item.price +
+						`</h3>` +
+						`<ul>` +
+						`<li><a onclick =" addCart(` +
+						item.id +
+						`) "  class="cart" href="#"> </a></li>` +
+						`<li><a  class="i" onclick = "single(` +
+						item.id +
+						`)"> </a></li>` +
+						`</ul>` +
+						`</div>`
+					);
+					pagingTable(data1.totalPages);
+				});
+			});
+
+			TotalQuantity(); // lấy ra tổng số lượng sản phẩm đang có trong giỏ hàng để hiển thị lên biểu tượng shopping cart
+			if (isLogin()) {
+
+				document.getElementById("register").style.display = "none";
+				document.getElementById("login").style.display = "none";
+				document.getElementById("logout").style.display = "block";
+				document.getElementById("fullname").style.display = "block";
+				document.getElementById("fullname").innerHTML = localStorage.getItem("FULL_NAME");
+
+			};
+
+
+
+			// Slideshow 1
+			$("#slider1").responsiveSlides({
+				maxwidth: 1600,
+				speed: 600
+			});
+		});
+	</script>
+</head>
+
+<body id="body">
+	<div class="wrap">
+		<!----start-Header---->
+		<div class="header">
+
+			<div class="clear"> </div>
+			<div class="header-top-nav">
+				<ul class="header1">
+					<li><a id="fullname" style=" color: red; display: none;"></a></li>
+					<li><a style="display: none;" id="logout" href="#" onclick="logout()">Logout</a></li>
+					<li id="register"  ><a href="register.html" >Register</a></li>
+					<li id="login" ><a href="login.html" >Login</a></li>
+					<li><a href="shoppingCart.html"><span>shopping cart&nbsp;&nbsp;: </span></a><label id="totalitems">
+						</label></li>
+
+				</ul>
+			</div>
+			<div class="clear"> </div>
+		</div>
+	</div>
+
+	<div class="clear"> </div>
+	<div class="top-header">
+		<div class="wrap">
+			<!----start-logo---->
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" title="logo" /></a>
+			</div>
+			<!----end-logo---->
+			<!----start-top-nav---->
+			<div class="top-nav">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="Store.html">Store</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+			<div class="clear"> </div>
+		</div>
+	</div>
+	<!----End-top-nav---->
+	<!----End-Header---->
+
+	<div class="clear"> </div>
+	<div id="showAll">
+		<div class="wrap">
+
+
+			<div class="content-grids">
+				<div id="cssSearch">
+					<h4 id="TextListProduct"> <b>DANH SÁCH ĐIỆN THOẠI</b> </h4>
+
+					<div class="search-bar">
+						<div class="search-bar1">
+							<input class="child" onkeyup="EnterDeTimKiemNhanh(event)" placeholder="Nhập tên điện thoại"
+								id="textSearch" type="text">
+							<button type="button" class="child1" onclick="ProductSearch()">Search</button>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="section group" id="GetAllProduct">
+
+
+
+				</div>
+				<nav aria-label="Page navigation example">
+					<ul class="pagination" id="pagination">
+						<!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item"><a class="page-link" href="#">2</a></li>
+								<li class="page-item"><a class="page-link" href="#">3</a></li>
+								<li class="page-item"><a class="page-link" href="#">Next</a></li> -->
+					</ul>
+				</nav>
+
+
+			</div>
+			<div class="content-sidebar">
+				<h4>Categories</h4>
+
+				<ul>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Apple"><p>Apple</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=SamSung"><p >SamSung</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Realme"><p >Realme</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Oppo"><p >Oppo</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Xiaomi"><p >Xiaomi</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Asus"><p >Asus</p> </a></li>
+					<li><a  href="http://127.0.0.1:5501/web/Category.html?page=1&size=8&search=Vivo"><p >Vivo</p> </a></li>
+				</ul>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="clear"> </div>
+	<div class="footer">
+		<div class="wrap">
+			<div class="section group">
+				<div class="col_1_of_4 span_1_of_4">
+					<h3>Our Info</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, quis nostrud exercitation ullamco
+						laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+						voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+				</div>
+				<div class="col_1_of_4 span_1_of_4">
+					<h3>Latest-News</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+				</div>
+				<div class="col_1_of_4 span_1_of_4">
+					<h3>Store Location</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					<h3>Order-online</h3>
+					<p>080-1234-56789</p>
+					<p>080-1234-56780</p>
+				</div>
+				<div class="col_1_of_4 span_1_of_4 footer-lastgrid">
+					<h3>News-Letter</h3>
+					<form>
+						<input type="text"><input type="submit" value="go" />
+					</form>
+					<h3>Follow Us:</h3>
+					<ul>
+						<li><a href="#"><img src="images/twitter.png" title="twitter" />Twitter</a></li>
+						<li><a href="#"><img src="images/facebook.png" title="Facebook" />Facebook</a></li>
+						<li><a href="#"><img src="images/rss.png" title="Rss" />Rss</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="clear"> </div>
+		<div class="wrap">
+			<div class="copy-right">
+				<p>&copy; 2013 Mobile Store. All Rights Reserved | Design by <a
+						href="http://w3layouts.com/">W3Layouts</a></p>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
