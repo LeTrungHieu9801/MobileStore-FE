@@ -45,12 +45,14 @@ function getListProducts() {
           item.price +
           `</h3>` +
           `<ul>` +
-          `<li><a onclick =" addCart(` +
+          `<li class="addcart"><a onclick =" addCart(` +
           item.id +
           `) "  class="cart" href="#"> </a></li>` +
-          `<li><a  class="i" onclick = "single(` +
+          `<li class="single" ><a  class="i" onclick = "single(` +
           item.id +
           `)"> </a></li>` +
+          `<li class="delete" style="display: none;"><input type="button" value="Delete" onclick="deleteOneProduct(`+
+            item.id +`)" id="deleteOneProduct"></li>` +
           `</ul>` +
           `</div>`
       );
@@ -112,6 +114,12 @@ function changePage(page) {
   currentPage = page;
   $("#GetAllProduct").empty();
   getListProducts();
+  if( document.location.href == document.location.origin + "/web/Admin-Product.html")
+  {
+    setTimeout(() => {
+      showDeleteButton();;
+    }, 100);
+  }
 }
 
 var hotproducts = [];
@@ -168,7 +176,13 @@ function addCart(productId) {
   productId: productId,
   qty: qty
  };
- 
+
+ if(localStorage.getItem("Token") == null)
+ {
+alert("Bạn cần đăng nhập để sử dụng tính năng thêm giỏ hàng !")
+ }
+ else
+ {
   $.ajax({
     url: 'http://localhost:8080/cart/add?token='+ localStorage.getItem("Token"),
     type: 'POST',
@@ -185,9 +199,8 @@ function addCart(productId) {
    TotalQuantity();
   
     }
-
 });
-
+ }
 }
 
 function single(id) {
@@ -204,6 +217,12 @@ function ProductSearch()
     search = s;
     $("#GetAllProduct").empty();
     getListProducts();
+    if( document.location.href == document.location.origin + "/web/Admin-Product.html")
+    {
+      setTimeout(() => {
+        showDeleteButton();;
+      }, 100);
+    }
   }
   else if (search != "" && search == s)
   {
@@ -224,4 +243,50 @@ function EnterDeTimKiemNhanh(event)
     event.preventDefault();
     ProductSearch();
   }
+}
+function deleteOneProduct(id)
+{
+  $.ajax({
+    url: "http://localhost:8080/ListProduct/" + id,
+    type: "DELETE",
+    success: function (result) {
+      // error
+      if (result == undefined || result == null) {
+        alert("Error when loading data");
+        return;
+      }
+
+      // success
+      alert("Delete successfully!");
+      $("#GetAllProduct").empty();
+      getListProducts();
+      if( document.location.href == document.location.origin + "/web/Admin-Product.html")
+      {
+        setTimeout(() => {
+          showDeleteButton();;
+        }, 100);
+      }
+    },
+  });
+}
+function uploadFile() {
+  var fileInput = document.getElementById('myFile');
+  var file = fileInput.files[0];
+
+  var formData = new FormData();
+  formData.append('image', file);
+
+  $.ajax({
+    url: 'http://localhost:8080/files/image',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(data) {
+      console.log('Kết quả trả về:', data);
+    },
+    error: function(jqXHR, textStatus, errorMessage) {
+      console.log('Lỗi khi gọi API:', errorMessage);
+    }
+  });
 }

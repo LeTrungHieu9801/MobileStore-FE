@@ -37,7 +37,7 @@ function LoadListShoppingCart() {
           item.product.price * item.qty +
           `</td>` +
           `<td>` +
-          `<a id="delete_1" onclick="DeleteOneItem(` +
+          `<a id="delete_1" onclick="DeleteOneItem2(` +
           item.id +
           `)" data-sp-ma="2" class="btn btn-danger btn-delete-sanpham">` +
           `<i class="fa fa-trash" aria-hidden="true"></i> Delete` +
@@ -71,7 +71,7 @@ function TotalQuantity() {
   });
 }
 
-function DeleteOneItem(id) {
+function DeleteOneItem2(id) {
   $.ajax({
     url: "http://localhost:8080/cart/" + id,
     type: "DELETE",

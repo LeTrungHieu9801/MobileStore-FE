@@ -1,16 +1,17 @@
-var products = [];
-function GetAllPayment()
-{
-  $.get("http://localhost:8080/api/v1/payment/Allpayments", (data, status) => {
-
-   
-  products = data;
+var product = [];
+var currentPage = 1;
+var size = 4;
+function getAllPayment() {
+  // Hiển thị danh sách giỏ hàng từ database
+  $.get("http://localhost:8080/payment/getListPayment?token="+ localStorage.getItem("Token") +"&page=" + currentPage + "&size=" + size, (data) => {
+    product = data.content;
+    console.log(data);
     var totalamount = 0;
-    // Hiển các sản phẩm vào bảng
+  //   // Hiển các sản phẩm vào bảng
     const row_container = $("#datarow");
 
-    data.forEach((item, index) => {
-      totalamount += item.price * item.qty; // tổng tiền
+    product.forEach((item, index) => {
+      totalamount += item.product.price * item.qty; // tổng tiền
 
       row_container.append(
         `<tr>` +
@@ -20,26 +21,26 @@ function GetAllPayment()
           `" onClick="onChangeCheckboxItem()">` +
           `</td>` +
           `<td>` +
-          item.productId +
+          item.product.id +
           `</td>` +
           `<td>` +
           `<img src="./images/` +
-          item.image +
+          item.product.image +
           `" class="hinhdaidien">` +
           ` </td>` +
           `<td>` +
-          item.name +
+          item.product.productName +
           `</td>` +
           ` <td class="text-right"> <input onblur=" " value="${item.qty}"></td>` +
           `<td class="text-right">` +
-          item.price +
+          item.product.price +
           `</td>` +
           `<td class="text-right">` +
-          item.price * item.qty +
+          item.product.price * item.qty +
           `</td>` +
           `<td>` +
           `<a id="delete_1" onclick="DeleteOneItem1(` +
-          item.productId +
+          item.id +
           `)" data-sp-ma="2" class="btn btn-danger btn-delete-sanpham">` +
           `<i class="fa fa-trash" aria-hidden="true"></i> Delete` +
           ` </a>` +
@@ -47,33 +48,90 @@ function GetAllPayment()
           `</tr>`
       );
     });
+     pagingTable(data.totalPages);
     // Hiển thị tổng tiền
     $("#Totalamount").append(
-      `<b> Tổng Tiền : </b> ` + `<span id="totalprice">$` + totalamount + `</span>`
+      `Total Amount: ` + `<span id="totalprice"> $` + totalamount + `</span>`
     );
   });
 }
 
-  
-  function DeleteOneItem1(id) {
-    $.ajax({
-      url: "http://localhost:8080/api/v1/payment/" + id,
-      type: "DELETE",
-      success: function (result) {
-        // error
-        if (result == undefined || result == null) {
-          alert("Error when loading data");
-          return;
-        }
-  
-        // success
-        alert("Delete successfully!");
-        $("#datarow").empty();
-        $("#Totalamount").empty();
-        GetAllPayment();
-      },
-    });
+function pagingTable(pageAmount) {
+  var pagingStr = "";
+
+  if (pageAmount > 1 && currentPage > 1) {
+    pagingStr +=
+      '<li class="page-item">' +
+      '<a class="page-link" onClick="prevPaging()">Previous</a>' +
+      "</li>";
   }
+
+  for (i = 0; i < pageAmount; i++) {
+    pagingStr +=
+      '<li class="page-item ' +
+      (currentPage == i + 1 ? "active" : "") +
+      '">' +
+      '<a class="page-link" onClick="changePage(' +
+      (i + 1) +
+      ')">' +
+      (i + 1) +
+      "</a>" +
+      "</li>";
+  }
+
+  if (pageAmount > 1 && currentPage < pageAmount) {
+    pagingStr +=
+      '<li class="page-item">' +
+      '<a class="page-link" onClick="nextPaging()">Next</a>' +
+      "</li>";
+  }
+
+  $("#pagination").empty();
+  $("#pagination").append(pagingStr);
+}
+function resetPaging() {
+  currentPage = 1;
+  size = 4;
+}
+
+function prevPaging() {
+  changePage(currentPage - 1);
+}
+
+function nextPaging() {
+  changePage(currentPage + 1);
+}
+
+function changePage(page) {
+  if (page == currentPage) {
+    return;
+  }
+  currentPage = page;
+  $("#datarow").empty();
+  $("#Totalamount").empty();
+  getAllPayment();
+}
+
+function DeleteOneItem1(id) {
+  $.ajax({
+    url: "http://localhost:8080/payment/" + id,
+    type: "DELETE",
+    success: function (result) {
+      // error
+      if (result == undefined || result == null) {
+        alert("Error when loading data");
+        return;
+      }
+
+      // success
+      alert("Delete successfully!");
+      $("#datarow").empty();
+      $("#Totalamount").empty();
+      getAllPayment();
+    },
+  });
+}
+
   
   function onChangeCheckboxItem() {
     var i = 0;
@@ -120,9 +178,9 @@ function GetAllPayment()
       var checkboxItem = document.getElementById("checkbox-" + i);
       if (checkboxItem !== undefined && checkboxItem !== null) {
         if (checkboxItem.checked) {
-          ids.push(products[i].productId);
+          ids.push(product[i].id);
           console.log(ids);
-          names.push(products[i].name);
+          names.push(product[i].productName);
           console.log(names);
         }
         i++;

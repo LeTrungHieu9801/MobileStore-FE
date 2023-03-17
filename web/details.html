@@ -20,10 +20,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script src="js/jquery.min.js"></script>
     <script src="js/GetAllProducts.js"></script>
     <script src="js/shoppingCart.js"></script>
-
+    <script src="js/logout.js"></script>
     <link rel="stylesheet" href="css/single.css">
     <script>
-        $(document).ready(() => {
+        $(function (){
             TotalQuantity();
             const params = new URLSearchParams(window.location.search);
             const product_id = parseInt(params.get('product_id'));
@@ -43,11 +43,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 category_ele.textContent = data.category;
                 name_ele.textContent = data.productName;
-                price_ele.textContent = "$"+data.price;
+                price_ele.textContent = "$" + data.price;
                 description_ele.textContent = data.description;
                 image_ele.src = "images/" + data.image;
-                addCart_ele.innerHTML = `<input type="button" id = "buttonAddCart" onclick="addCart(`+data.id+`)" value="Add Cart">`;
+                addCart_ele.innerHTML = `<input type="button" id = "buttonAddCart" onclick="addCart(` + data.id + `)" value="Add Cart">`;
             });
+
+            if (isLogin()) {
+
+                document.getElementById("register").style.display = "none";
+                document.getElementById("login").style.display = "none";
+                document.getElementById("logout").style.display = "block";
+                document.getElementById("fullname").style.display = "block";
+                document.getElementById("fullname").innerHTML = localStorage.getItem("firstName") + "&nbsp;" + localStorage.getItem("lastName");
+
+            };
         });
     </script>
 </head>
@@ -60,12 +70,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 <div class="clear"> </div>
                 <div class="header-top-nav">
-                    <ul>
+                    <ul class="header1">
                         <li><a id="fullname" style=" color: red; display: none;"></a></li>
                         <li><a style="display: none;" id="logout" href="#" onclick="logout()">Logout</a></li>
-                        <li id="register"  ><a href="register.html" >Register</a></li>
-                        <li id="login" ><a href="login.html" >Login</a></li>
-                        <li><a href="shoppingCart.html"><span>shopping cart&nbsp;&nbsp;: </span></a><label id="totalitems">
+                        <li id="register"><a href="register.html">Register</a></li>
+                        <li id="login"><a href="login.html">Login</a></li>
+                        <li><a href="shoppingCart.html"><span>shopping cart&nbsp;&nbsp; </span></a><label
+                                id="totalitems">
                             </label></li>
                     </ul>
                 </div>
@@ -104,9 +115,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <div class="back-links">
                         <ul>
-                            <li><a  href="index.html"> <p class="back">Trang Chủ</p>     </a><img class="picBack" src="images/arrow.png" alt=""></li>
-                            <li><a href="Store.html"> <p class="back">Sản Phẩm</p> </a><img  class="picBack" src="images/arrow.png" alt=""></li>
-                            <li><a href="#"><p class="back">Chi tiết Sản Phẩm</p> </a><img class="picBack"  src="images/arrow.png" alt=""></li>
+                            <li><a href="index.html">
+                                    <p class="back">Trang Chủ</p>
+                                </a><img class="picBack" src="images/arrow.png" alt=""></li>
+                            <li><a href="Store.html">
+                                    <p class="back">Sản Phẩm</p>
+                                </a><img class="picBack" src="images/arrow.png" alt=""></li>
+                            <li><a href="#">
+                                    <p class="back">Chi tiết Sản Phẩm</p>
+                                </a><img class="picBack" src="images/arrow.png" alt=""></li>
                         </ul>
                     </div>
 
@@ -117,11 +134,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div id="detailProduct">
                     <h2 style="text-align: center; color: rgb(235, 91, 91);">Thông tin sản phẩm</h2>
                     <ul>
-                        <li class="Single-content"><b>Thương hiệu:</b>&nbsp;<span class="Single-text" id="category"></span></li>
+                        <li class="Single-content"><b>Thương hiệu:</b>&nbsp;<span class="Single-text"
+                                id="category"></span></li>
                         <li class="Single-content"><b> Tên:</b>&nbsp; <span class="Single-text" id="name"></span></li>
-                        <li class="Single-content"><b>Giá:</b>  <span class="Single-text" id="price"></span></li>
-                        <li class="Single-content"> <b>Thông tin:</b>&nbsp;  <span class="Single-text" id="description"></span></li>
-                        <li class="Single-content" > <span id="addcart"></span></li>
+                        <li class="Single-content"><b>Giá:</b> <span class="Single-text" id="price"></span></li>
+                        <li class="Single-content"> <b>Thông tin:</b>&nbsp; <span class="Single-text"
+                                id="description"></span></li>
+                        <li class="Single-content"> <span id="addcart"></span></li>
                     </ul>
                 </div>
             </div>

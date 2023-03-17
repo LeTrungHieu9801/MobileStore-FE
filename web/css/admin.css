@@ -1,0 +1,91 @@
+#showAll
+{
+    display: flex;
+    background-color:white;
+}
+
+.menu1
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  
+}
+.menu2
+{
+    display: block;
+    width: 20%;
+    /* height: 100%; */
+    background-color: rgb(96, 118, 184);
+    color: white;
+}
+.animation-menu2
+{
+   background-color: rgba(143, 221, 42, 0.786); 
+   color: black; 
+}
+.animation-menu2:hover
+{
+    background-color: white; 
+   color: rgb(75, 98, 171); 
+}
+.nav,a{
+    color: white;
+}
+.nav,li{
+    padding: 10px 0px;
+}
+.content-grids
+{
+    display: block;
+    width: 70%;
+    height: 100%;
+   padding-left: 100px;
+}
+.title-admin
+{
+    text-align: center;
+}
+#ThemSanPham
+{
+    border-radius: 10px ;
+    /* margin-top: 10px; */
+    padding: 5px 5px;
+    background-color: rgb(239, 150, 72);
+    color: rgb(8, 12, 16);
+    border-color: coral;
+}
+.TextListProduct
+{
+    margin-top: 18px;
+}
+
+/* Bảng thêm sản phẩm Css */
+#myModal
+{
+    width: 35%;
+    height: 100%;
+    margin-top: 80px;
+    background-color: white;
+    border-style:groove;
+    border-color: rgb(214, 250, 218);
+    border-width: 5px;
+
+}
+h5
+{
+text-align: center;
+color: rgb(22, 17, 17);
+font-weight: bold;
+}
+.tableModal li 
+{
+    margin-left: 10px;
+    padding: 5px;
+}
+.tableModal li input
+{
+    width: 90%;
+    height: 30px;
+    border-width: 0px 0px 1px 0px;
+}

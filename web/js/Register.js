@@ -107,5 +107,5 @@ function addAccount() {
 
 function returnHome()
 {
-    window.location.replace("http://127.0.0.1:5501/web/index.html"); 
+    document.location.href = document.location.origin + "/web/index.html"; 
 }

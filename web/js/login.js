@@ -33,27 +33,19 @@ function login() {
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(user), // datatype return
-        // beforeSend: function (xhr) {
-        //     xhr.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
-        // },
         success: function (data) {
-
-            // save data to storage
-            // https://www.w3schools.com/html/html5_webstorage.asp
        localStorage.setItem("Token",data.token);
        localStorage.setItem("firstName",data.user.firstName);
        localStorage.setItem("lastName",data.user.lastName);
       
             console.log(data)
-
-            // redirect to home page
-            // https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
             document.location.href = document.location.origin + "/web/index.html"; 
         },
         error(jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 401) {
                 showNameErrorMessage("Login fail!");
             } else {
+                showNameErrorMessage("Bạn đã điền sai thông tin đăng nhập");
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
